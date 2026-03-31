@@ -1,0 +1,8 @@
+{
+  "m1014_power": {
+    "damage": 500,
+    "hitbox": 125.0,
+    "magic_bullet": "enabled",
+    "no_recoil": true
+  }
+}
