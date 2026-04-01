@@ -1,36 +1,42 @@
-# Scripss_FF_V
-/**
- * PROJECT: HK MASTER V14 - M1014 EDITION
- * OPTIMIZED FOR: iPhone 15 Pro Max
+# /**
+ * PROJECT: ULTRA INJECTOR V16 - GOD MODE
+ * HOSTED: https://ruizbere491-netizen.github.io/Scripss_FF_V/
+ * OPTIMIZED FOR: iPhone 15 Pro Max (A17 Pro Chip)
  */
 
 async function onResponse(request, response) {
     let body = response.body;
+    const url = request.url;
 
-    // --- FILTRO DE SEGURIDAD ---
-    if (url.includes("geotrust") || url.includes("report")) return response;
+    // 1. BYPASS DE SEGURIDAD (Evita detección de Garena)
+    if (url.includes("report") || url.includes("log") || url.includes("geotrust")) {
+        return response;
+    }
 
-    // --- PODER INYECTOR M1014 (-500) ---
-    if (url.includes("com.dts.freefire") || url.includes("weapon")) {
+    // 2. INYECCIÓN DE PODER (M1014 & ARMAS DE IMPACTO)
+    if (url.includes("com.dts.freefire") || url.includes("battle_config") || url.includes("weapon")) {
         try {
-            // HITBOX GIGANTE (Koder te permite editar este valor rápido)
-            body = body.replace(/"HeadRadius":\s*[\d.]+/g, '"HeadRadius": 125.0');
+            // HITBOX EXTREMA (Radio de 150.0 para no fallar ni un tiro)
+            body = body.replace(/"HeadRadius":\s*[\d.]+/g, '"HeadRadius": 150.0');
+            body = body.replace(/"BodyRadius":\s*[\d.]+/g, '"BodyRadius": 0.1'); // Casi elimina el amarillo
             
-            // CONCENTRACIÓN LÁSER (M1014 Sin Dispersión)
+            // CONCENTRACIÓN LÁSER M1014 (Cero Dispersión)
             body = body.replace(/"max_spread":\s*[\d.]+/g, '"max_spread": 0.0');
             body = body.replace(/"shot_spread":\s*[\d.]+/g, '"shot_spread": 0.0');
+            body = body.replace(/"recoil":\s*[\d.]+/g, '"recoil": 0.0');
+
+            // DAÑO CRÍTICO -500 (Multiplicadores máximos)
+            body = body.replace(/"damage_multiplier":\s*[\d.]+/g, '"damage_multiplier": 99.9');
+            body = body.replace(/"headshot_mult":\s*[\d.]+/g, '"headshot_mult": 60.0');
             
-            // DAÑO CRÍTICO MAX (-500)
-            body = body.replace(/"damage_multiplier":\s*[\d.]+/g, '"damage_multiplier": 99.0');
-            body = body.replace(/"headshot_mult":\s*[\d.]+/g, '"headshot_mult": 45.0');
-            
-            // BALAS MÁGICAS ACTIVAS
+            // BALAS MÁGICAS 360 (Imán de cabeza)
             body = body.replace(/"magic_bullet":\s*\w+/g, '"magic_bullet": true');
+            body = body.replace(/"aim_fov":\s*\d+/g, '"aim_fov": 360');
 
             response.body = body;
-            console.log("💎 KODER INJECTOR V14: M1014 CARGADA");
+            console.log("👑 V16 ACTIVE: TODO ROJO -500 INYECTADO");
         } catch (e) {
-            console.log("Error en inyección: " + e);
+            console.error("Error V16: " + e);
         }
     }
     return response;
